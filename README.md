@@ -9,17 +9,21 @@ IOS는 DNS부분만 구축한 서버 IP를 넣어주면 되지만 안드로이�
 
 > 다른 리눅스 환경에서의 정상동작은 보증하지 않으며 다른부분을 직접 찾아 수정해야 할 것임
 
-> ubuntu 계정으로 로그인해서 작업한 내용이고 sudo 넣기 귀찮으면 root로 로그인 후 수행
+> ubuntu 유저로 수행한 내용
 
 ```sh
 $ sudo apt update
 $ sudo apt upgrade -y
 $ sudo apt install apache2 php php-sqlite3 bind9 -y
+$ git clone https://github.com/jbl428/DMTQ-ubuntu.git
+$ cd DMTQ-ubuntu/
+$ sudo cp -v sites-available/* /etc/apache2/sites-available/
+$ sudo cp -rv ssl /etc/apache2/
+$ sudo cp -vf bind/* /etc/bind/
 $ sudo a2enmod rewrite ssl
 $ sudo a2ensite server ssl
 $ sudo a2dissite 000-default
 $ sudo systemctl restart apache2
-$ sudo cp -f named.conf.local zone /etc/bind/
 ```
 
 네임서버의 존파일의 IP부분을 현재 서버의 IP로 수정해야 하는데 vi로 수정해도 되고 아래 명령어에서 `<사설서버 IP>` 부분에 IP를 넣어주어 수행하면 된다.
@@ -68,7 +72,20 @@ localhost.              604800  IN      AAAA    ::1
 ;; MSG SIZE  rcvd: 155
 ```
 
-이후에 사설서버 소스코드내 `C:\dmtq.db3` 부분을 찾아 `/home/ubuntu/DMTQ-server/_info/dmtq.db3` 로 수정하고
+아래 명령어로 테크니카 소스코드내 디렉토리 이름을 변경한다.
+
+```
+$ mv /home/ubuntu/DMTQ-server/www.neonapi.com/api/accounts_server/ /home/ubuntu/DMTQ-server/www.neonapi.com/api/accounts
+```
+
+사설서버 소스코드내 `C:\dmtq.db3` 부분을 찾아 `/home/ubuntu/DMTQ-server/_info/dmtq.db3` 로 수정해야 하는데
+아래 명령어로 해결된다.
+
+```sh
+$ cd ~
+$ sed -i 's#C:.dmtq.db3#/home/ubuntu/DMTQ-server/_info/dmtq.db3#' DMTQ-server/dmqglb.mb.pmang.com/score/index.php DMTQ-server/dmqglb.mb.pmang.com/djmaxQ/_vendor/_config.php DMTQ-server/pmangplus.com/accounts/v3/global/login_dmq.php DMTQ-server/www.neonapi.com/api/accounts/v3/global/login_dmq.php
+```
+
 아래 명령어 수행하여 디비파일에 쓰기권한을 준다.
 
 ```
