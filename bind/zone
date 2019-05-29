@@ -1,0 +1,10 @@
+$TTL    86400
+@   IN  SOA localhost. root.localhost. (
+                  1     ; Serial
+             14400      ; Refresh
+              14400     ; Retry
+            1209600     ; Expire
+              86400 )   ; Negative Cache TTL
+@   IN  NS  localhost.
+@   IN  A   192.168.10.20
+*   IN  A   192.168.10.20
