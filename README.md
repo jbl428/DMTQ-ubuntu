@@ -83,7 +83,7 @@ $ mv /home/ubuntu/DMTQ-server/www.neonapi.com/api/accounts_server/ /home/ubuntu/
 
 ```sh
 $ cd ~
-$ sed -i 's#C:.dmtq.db3#/home/ubuntu/DMTQ-server/_info/dmtq.db3#' DMTQ-server/dmqglb.mb.pmang.com/score/index.php DMTQ-server/dmqglb.mb.pmang.com/djmaxQ/_vendor/_config.php DMTQ-server/pmangplus.com/accounts/v3/global/login_dmq.php DMTQ-server/www.neonapi.com/api/accounts/v3/global/login_dmq.php
+$ sed -i 's#C:.dmtq.db3#/home/ubuntu/DMTQ-server/_info/dmtq.db3#' DMTQ-server/dmqglb.mb.pmang.com/score/index.php DMTQ-server/dmqglb.mb.pmang.com/djmaxQ/_vendor/_config.php DMTQ-server/pmangplus.com/accounts/v3/global/login_dmq.php DMTQ-server/www.neonapi.com/api/accounts/v3/global/login_dmq.php DMTQ-server/_vendor/config.php
 ```
 
 아래 명령어 수행하여 디비파일에 쓰기권한을 준다.
